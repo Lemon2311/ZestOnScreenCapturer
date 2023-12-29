@@ -55,3 +55,40 @@ def capture_and_display(window_title):
 
         cv2.destroyAllWindows()
 
+def record_window_stream(window_title):
+    with mss() as sct:
+        window_check_interval = 60
+        window_check_counter = 0
+        last_frame_time = time.time()
+        last_fps_update_time = time.time()
+        fps_update_interval = 0.3  # Update FPS every 0.3 seconds
+        fps = 0
+        while True:
+            # Update capture region only at intervals
+            if window_check_counter % window_check_interval == 0:
+                windows = gw.getWindowsWithTitle(window_title)
+                if windows:
+                    window = windows[0]
+                    mon = {"top": window.top, "left": window.left, "width": window.width, "height": window.height}
+                else:
+                    print("Window not found. Please open the window.")
+                    time.sleep(1)
+                    continue
+                window_check_counter = 0
+
+            img = sct.grab(mon)
+            frame = np.array(img)
+            window_check_counter += 1
+
+            # FPS calculation
+            current_time = time.time()
+            frame_time = current_time - last_frame_time
+            last_frame_time = current_time
+            temp_fps = 1 / frame_time if frame_time > 0 else 0
+
+            # Update FPS every 0.3 seconds
+            if current_time - last_fps_update_time >= fps_update_interval:
+                fps = temp_fps
+                last_fps_update_time = current_time
+
+            yield frame, fps  # Yield the captured frame along with FPS
