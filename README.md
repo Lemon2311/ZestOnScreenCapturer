@@ -24,8 +24,5 @@ for frame, fps in record_window_stream("BlueStacks App Player"):
 cv2.destroyAllWindows()
 ```
 This app was created when I wanted to create an AI model that plays a game on BlueStacks (Android Emulator for using Android apps on PC), and I faced the problem of not being able to get a decent fps with the existing libraries I found.
-<br>
-<br>
-Right now the app outputs the input recorded video in real time, and the current implementation of zest.py can be modified to use the video stream in any python app.
 <br><br>
 **Note:** The app needs to be visible on screen for Zest to be able to work.
