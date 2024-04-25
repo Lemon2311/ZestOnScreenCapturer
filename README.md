@@ -1,5 +1,5 @@
 # ZestOnScreenCapturer
-Dynamic python on-screen app recording solution, Zest records on screen apps in proper fps, and automatically resizes to the size of the window selected with a sampling rate of 1 second.
+Dynamic python on-screen app recording solution, Zest records on screen apps in proper fps(60), and automatically resizes to the size of the window selected with a sampling rate of 1 second.
 # Usage
 Outputing video stream
 ```py
